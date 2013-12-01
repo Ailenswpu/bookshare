@@ -1,0 +1,41 @@
+zh-CN:
+  activerecord:
+    models:
+      user: "用户"
+      book: "书籍"
+      resource: "资源"
+    attributes:
+      user:
+        login: "登录名"
+        name: "用户名"
+        avatar: "头像"
+        email: "Email"
+        kindle_email: "kindle邮箱"
+        password: "密码"
+        roles_mask: "角色"
+        grant_permission: "权限"
+        password_confirmation: "确认密码"
+        current_password: "当前密码"
+        remember_me: "记住我"
+        created_at: "注册时间"
+        last_sign_in_at: "上次登录时间"
+      book:
+        cover: "封面"
+        name: "书名"
+        tag: "标签"
+        author: "作者"
+        translator: "译者"
+        tag_list: "标签"
+        author_list: "作者"
+        translator_list: "译者"
+        publishing_house: "出版社"
+        pages: "页数"
+        ISBN: "ISBN"
+        content: "内容简介"
+        resources: "资源"
+      resource:
+        book: "书籍"
+        name: "名称"
+        format: "格式"
+        file_size: "大小"
+        links: "链接"

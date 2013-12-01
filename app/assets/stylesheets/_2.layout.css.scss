@@ -1,0 +1,39 @@
+@include sticky_footer;
+
+#content {
+  padding: 1 * $baseLineHeight 0;
+}
+
+#footer {
+  border-top: 1px solid $borderColor;
+  padding: 1 * $baseLineHeight 0;
+  background: $grayBackground;
+}
+
+#flash .alert {
+  margin-top: $baseLineHeight / 2;
+}
+
+@media (max-width: 767px) {
+  //html {
+    //height: auto;
+  //}
+  body {
+    //height: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  #footer, .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .navbar-static-top .container {
+    width: auto;
+  }
+
+  .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}

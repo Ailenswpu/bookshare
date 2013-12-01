@@ -1,0 +1,86 @@
+- model_class = Book
+.row-fluid.book ng-init="book.id=#{@book.id}"
+  .span3
+    .book-sidebar
+      .book-cover
+        == image_tag(@book.cover_url)
+      ul.unstyled
+        /*li= format_tags @book.tags*/
+        li= format_tags @book.tag_list
+        -if can? :update, @book
+          li
+            i.icon-edit
+            |&nbsp;
+            = link_to t('helpers.links.edit'), edit_book_path(@book)
+        -if can? :destroy, @book
+          li
+            i.icon-remove
+            |&nbsp;
+            = link_to t('helpers.links.destroy'), @book, method: :delete, data: { confirm: t('helpers.links.confirm') }
+        li ng-controller='FollowsCtrl' ng-init='init(#{book_follow_info(@book)})'
+          a ng-href='{{href}}' ng-click='follow()' ng-class='{disabled: disabled}'
+            i ng-class="{true: 'icon-star', false: 'icon-star-empty'}[followed]"
+            |&nbsp;{{labels[followed]}}
+          a.social-count {{count}}
+  .span9
+    header
+      h1 = @book.name
+      p.text-right
+        = link_to @book.try(:user).try(:name), user_path(@book.user) if @book.user
+        = "于#{time_ago_in_words @book.created_at}前发布"
+
+    .book-detail
+      table.table.table-striped.table-bordered
+        tbody
+          tr
+            td.span2= model_class.human_attribute_name(:author)
+            td= format_labels @book.author_list, "info", "author"
+          - unless @book.translators.blank?
+            tr
+              td.span2= model_class.human_attribute_name(:translator)
+              td= format_labels @book.translator_list, '', "translator"
+          tr
+            td.span2= model_class.human_attribute_name(:tag)
+            td= format_labels @book.tag_list, "important"
+          - unless @book.publishing_house.blank?
+            tr
+              td.span2= model_class.human_attribute_name(:publishing_house)
+              td= @book.publishing_house
+          - unless @book.pages.blank?
+            tr
+              td.span2= model_class.human_attribute_name(:pages)
+              td= @book.pages
+          - unless @book.ISBN.blank?
+            tr
+              td.span2= model_class.human_attribute_name(:ISBN)
+              td= @book.ISBN
+
+    .book-content
+      h2= model_class.human_attribute_name(:content)
+      .well
+        = simple_format @book.content
+
+    .book-resources
+      .masthead
+        - if can? :create, Resource
+          ul.nav.nav-pills.pull-right
+            li= link_to t("helpers.links.add_resource"), new_resource_path(:book_id => @book)
+        h2.muted= model_class.human_attribute_name(:resources)
+      table.table.table-striped
+        tbody
+          - @book.resources.each do |resource|
+            tr[id='#{dom_id(resource)}']
+              td= truncate resource.try(:attachment).try(:file_name)
+              td
+                b= resource.try(:attachment).try(:type)
+              td= number_to_human_size resource.try(:attachment).try(:file_size)
+              td= link_to t("helpers.links.hyperlink"), download_resource_path(resource), class: "btn btn-mini btn-success", target: "_blank"
+              / - if resource.transformed
+              td= link_to t('helpers.links.read'), read_resource_path(resource), class: "btn btn-info btn-mini", target: "_blank" if resource.pdf?
+              td= link_to t('helpers.links.send_to_kindle'), send_to_kindle_resource_path(resource), method: :post, class: "btn btn-danger btn-mini", data: { confirm: t('helpers.links.confirm') } if can_send_to_kindle?(resource, current_user)
+              / - else
+              /   td= link_to t('helpers.links.transform'), pdf2html_resource_path(resource), method: :put, class: "btn btn-danger btn-mini", data: { confirm: t('helpers.links.confirm') } if can? :pdf2html, resource
+              td= link_to '&times;'.html_safe, resource, method: :delete, data: { confirm: t('helpers.links.confirm') }, remote: true, :class => 'close' if can? :destroy, resource
+
+    .book-comments
+      = render "shared/uyan_js", :su => "/books/#{@book.id}"

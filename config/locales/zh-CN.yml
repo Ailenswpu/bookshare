@@ -1,0 +1,49 @@
+zh-CN:
+  site_name: "书架"
+  date:
+    weekstart: '1'
+    formats:
+      datepicker: 'yyyy-mm-dd'
+      stamp: '%b%d日(%a)'
+      stamp_with_year: '%Y年%b%d日(%a)'
+
+  views:
+    pagination:
+      previous: "前一页"
+      next: "后一页"
+      first: "首页"
+      last: "末页"
+      truncate: "..."
+    follow:
+      state:
+        false: "收藏"
+        true: "已收藏"
+    books:
+      index:
+        top_download: "最多下载"
+        last_upload: "最新创建"
+        need_resource: "待补电子书"
+        more: '更多...'
+  controller:
+    books:
+      index:
+        top_download: "下载排行榜"
+        last_upload: "最新创建"
+        need_resource: "待补电子书"
+
+
+  layout:
+    holder: "Caok"
+    contact_us: "联系我们"
+    opensource: "开源社区"
+    search: "搜索"
+
+  labels:
+    cancel: "取消"
+    close: "关闭"
+    book: "书籍"
+    tag: "标签"
+    resource: "资源"
+
+  unauthorized:
+      default: "你没有权限访问此页面。"

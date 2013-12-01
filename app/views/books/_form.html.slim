@@ -1,0 +1,19 @@
+.well
+  fieldset
+    legend= t 'labels.book'
+    = simple_form_for @book, :html => { :class => "form-horizontal", :multipart => true }, :validate => true do |f|
+      .form-inputs
+        = f.input :cover, :as => :file
+        = f.input :name
+        = f.input :tag_list, :hint => t('helpers.hints.tag')
+        = f.input :author_list, :hint => t('helpers.hints.tag')
+        = f.input :translator_list, :hint => t('helpers.hints.tag')
+        = f.input :publishing_house
+        = f.input :pages
+        = f.input :ISBN
+        = f.input :content, :input_html => {:rows => 12, :class => 'span6'}
+
+      .form-actions
+        = f.button :submit, :class => ['btn', 'btn-info']
+        '
+        = link_to t("helpers.links.cancel"), books_path, :class => 'btn'

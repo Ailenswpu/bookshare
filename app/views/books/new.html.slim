@@ -1,0 +1,13 @@
+.row
+  .span10.offset1
+    .tabbable.tabs-left
+      ul.nav-tabs.nav
+        li
+          a href=auto_new_books_path title=t('books.new.auto_create')
+            =t 'books.new.auto_create'
+        li.active
+          a  href=new_book_path title=t('books.new.handel_create')
+            =t 'books.new.handel_create'
+      .tab-content
+        .tab-pane.active#handle-create-form
+          == render 'form'
