@@ -3,6 +3,7 @@ development: &default
   min_infix_len: 1
   ngram_len: 1
   ngram_chars :  "U+3000..U+2FA1F"
+  utf8: true
 
 production :
   <<: *default
